@@ -1,3 +1,6 @@
+import { motion } from 'framer-motion';
+import { spring, tapScale } from '../motion';
+
 export type TabId = 'home' | 'farm' | 'analytics' | 'harvest' | 'profile';
 
 const TABS: { id: TabId; emoji: string; label: string }[] = [
@@ -20,20 +23,34 @@ export function BottomTabBar({ active, onChange }: Props) {
         {TABS.map((tab) => {
           const isActive = active === tab.id;
           return (
-            <button
+            <motion.button
               key={tab.id}
               onClick={() => onChange(tab.id)}
-              className={`flex flex-col items-center gap-0.5 min-w-[56px] py-1 rounded-2xl transition-all duration-300 ${
-                isActive ? 'bg-[#2E5B34]/10 scale-105' : 'opacity-60'
-              }`}
+              whileTap={tapScale}
+              className="relative flex flex-col items-center gap-0.5 min-w-[56px] py-1 rounded-2xl"
             >
-              <span className={`text-xl transition-transform duration-300 ${isActive ? 'scale-110' : ''}`}>
+              {isActive && (
+                <motion.div
+                  layoutId="tab-pill"
+                  className="absolute inset-0 bg-[#2E5B34]/10 rounded-2xl"
+                  transition={spring}
+                />
+              )}
+              <motion.span
+                className="relative text-xl z-10"
+                animate={{ scale: isActive ? 1.12 : 1, opacity: isActive ? 1 : 0.55 }}
+                transition={spring}
+              >
                 {tab.emoji}
-              </span>
-              <span className={`text-[10px] font-medium ${isActive ? 'text-[#2E5B34]' : 'text-gray-500'}`}>
+              </motion.span>
+              <span
+                className={`relative z-10 text-[10px] font-medium ${
+                  isActive ? 'text-[#2E5B34]' : 'text-gray-500'
+                }`}
+              >
                 {tab.label}
               </span>
-            </button>
+            </motion.button>
           );
         })}
       </div>

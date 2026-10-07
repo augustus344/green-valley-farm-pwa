@@ -1,3 +1,6 @@
+import { motion, useReducedMotion } from 'framer-motion';
+import { spring } from '../motion';
+
 interface Props {
   percent: number;
   size?: number;
@@ -5,6 +8,7 @@ interface Props {
   color?: string;
   label?: string;
   sublabel?: string;
+  delay?: number;
 }
 
 export function ProgressRing({
@@ -14,7 +18,9 @@ export function ProgressRing({
   color = '#2E5B34',
   label,
   sublabel,
+  delay = 0,
 }: Props) {
+  const reduce = useReducedMotion();
   const r = (size - stroke) / 2;
   const circ = 2 * Math.PI * r;
   const offset = circ - (percent / 100) * circ;
@@ -31,7 +37,7 @@ export function ProgressRing({
             stroke="#E8E2D6"
             strokeWidth={stroke}
           />
-          <circle
+          <motion.circle
             cx={size / 2}
             cy={size / 2}
             r={r}
@@ -40,8 +46,9 @@ export function ProgressRing({
             strokeWidth={stroke}
             strokeLinecap="round"
             strokeDasharray={circ}
-            strokeDashoffset={offset}
-            style={{ transition: 'stroke-dashoffset 1s cubic-bezier(0.34, 1.56, 0.64, 1)' }}
+            initial={{ strokeDashoffset: circ }}
+            animate={{ strokeDashoffset: reduce ? offset : offset }}
+            transition={reduce ? { duration: 0 } : { ...spring, delay }}
           />
         </svg>
         <div className="absolute inset-0 flex items-center justify-center">
