@@ -1,0 +1,62 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cream: #F6F1E7;
+  --color-card: #FFFDF8;
+  --color-primary: #2E5B34;
+  --color-primary-light: #3d7a46;
+  --font-sans: "SF Pro Display", system-ui, -apple-system, sans-serif;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  background: #F6F1E7;
+  font-family: var(--font-sans);
+  overscroll-behavior: none;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+@keyframes wander-x {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(8px); }
+}
+
+@keyframes wander-y {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+@keyframes slide-up {
+  from { transform: translateY(100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes count-pop {
+  0% { transform: scale(0.8); opacity: 0; }
+  60% { transform: scale(1.05); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.animate-float { animation: float 3s ease-in-out infinite; }
+.animate-wander-x { animation: wander-x 4s ease-in-out infinite; }
+.animate-wander-y { animation: wander-y 5s ease-in-out infinite; }
+.animate-slide-up { animation: slide-up 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.animate-count-pop { animation: count-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
+
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
