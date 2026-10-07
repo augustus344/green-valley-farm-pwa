@@ -18,26 +18,27 @@ interface Props {
 
 export function BottomTabBar({ active, onChange }: Props) {
   return (
-    <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] bg-[#FFFDF8]/border-t border-[#E8E2D6] safe-bottom z-50">
+    <nav className="w-full border-t border-[#E8E2D6] bg-[#FFFDF8]/95 backdrop-blur-md safe-bottom z-50">
       <div className="flex items-center justify-around px-1 py-2">
         {TABS.map((tab) => {
           const isActive = active === tab.id;
           return (
             <motion.button
               key={tab.id}
+              type="button"
               onClick={() => onChange(tab.id)}
               whileTap={tapScale}
-              className="relative flex flex-col items-center gap-0.5 min-w-[56px] py-1 rounded-2xl"
+              className="relative flex min-w-[56px] cursor-pointer flex-col items-center gap-0.5 rounded-2xl py-1"
             >
               {isActive && (
                 <motion.div
                   layoutId="tab-pill"
-                  className="absolute inset-0 bg-[#2E5B34]/10 rounded-2xl"
+                  className="absolute inset-0 rounded-2xl bg-[#2E5B34]/10"
                   transition={spring}
                 />
               )}
               <motion.span
-                className="relative text-xl z-10"
+                className="relative z-10 text-xl"
                 animate={{ scale: isActive ? 1.12 : 1, opacity: isActive ? 1 : 0.55 }}
                 transition={spring}
               >

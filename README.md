@@ -1,21 +1,13 @@
 # Green Valley Farm PWA
 
-Cute illustrated farm-management dashboard — a production-ready Progressive Web App.
+Cute illustrated farm-management dashboard — production-ready Progressive Web App.
 
 ## Stack
 
 - Vite + React 19 + TypeScript
 - Tailwind CSS v4
+- framer-motion
 - vite-plugin-pwa (Workbox) for offline support
-- All graphics are inline SVG / CSS / emoji (fully offline)
-
-## Features
-
-- **Home** — hero banner, farm health ring, weather, quick stats with count-up
-- **Farm** — interactive top-down map with tappable zones, zoom/pan, detail cards, idle animal animations
-- **Livestock** — herd overview, progress rings, feeding timeline, category filters, animal cards
-- **Analytics / Harvest / Profile** — polished mock screens with SVG charts
-- Installable PWA with service worker precaching
 
 ## Local development
 
@@ -24,22 +16,18 @@ npm install
 npm run dev
 ```
 
-Open http://localhost:5173
+Build: `npm run build` → `dist/`
 
-## Build
+## Assets
 
-```bash
-npm run build
-npm run preview
-```
+All game art is **CC0** (public domain), embedded as data URIs in `src/assets.ts` so the PWA works fully offline.
 
-Output is in `dist/`.
+| Asset | Source | License |
+|-------|--------|---------|
+| Tiny Farm tiles (barn, crops, trees, soil, farmers, sheep) | [Kenney Tiny Farm](https://kenney.nl/assets/tiny-farm) / [OpenGameArt](https://opengameart.org/content/tiny-farm) | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/) |
+| Animal Pack Redux (cow, chicken, goat, pig) | [Kenney Animal Pack Redux](https://kenney.nl/assets/animal-pack-redux) | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/) |
 
-## Deploy (Vercel)
-
-Framework: Vite · Build: `npm run build` · Output: `dist`
-
-Or connect the GitHub repo — Vercel auto-detects Vite.
+Attribution (optional): **Kenney.nl**
 
 ## Design tokens
 
@@ -48,8 +36,4 @@ Or connect the GitHub repo — Vercel auto-detects Vite.
 | Background | `#F6F1E7` |
 | Cards | `#FFFDF8` |
 | Primary | `#2E5B34` |
-| Max width | 430px (mobile-first) |
-
-## Data
-
-All mock data lives in `src/data/farm.ts` (typed models: Zone, Animal, AnimalKind, FeedingSlot) so a real API can replace it later.
+| Max width | 430px |
