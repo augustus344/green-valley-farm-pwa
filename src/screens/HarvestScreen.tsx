@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { CountUp } from '../components/CountUp';
+import { useToast } from '../components/Toast';
 import { riseItem, spring, staggerContainer, tapScale } from '../motion';
 
 const HARVESTS = [
@@ -11,9 +12,10 @@ const HARVESTS = [
 ];
 
 export function HarvestScreen() {
+  const toast = useToast();
   return (
     <motion.div
-      className="px-4 pt-4 pb-24 space-y-4"
+      className="space-y-4 px-4 pb-6 pt-4"
       variants={staggerContainer}
       initial="hidden"
       animate="show"
@@ -33,11 +35,13 @@ export function HarvestScreen() {
 
       <div className="space-y-3">
         {HARVESTS.map((h, i) => (
-          <motion.div
+          <motion.button
+            type="button"
             key={h.crop}
             variants={riseItem}
             whileTap={tapScale}
-            className="bg-[#FFFDF8] rounded-3xl shadow-sm p-4"
+            onClick={() => toast(`${h.crop}: ${h.status}`, h.emoji)}
+            className="w-full cursor-pointer rounded-3xl bg-[#FFFDF8] p-4 text-left shadow-sm"
           >
             <div className="flex items-center gap-3 mb-2">
               <span className="text-3xl">{h.emoji}</span>
@@ -61,7 +65,7 @@ export function HarvestScreen() {
                 transition={{ ...spring, delay: 0.2 + i * 0.06 }}
               />
             </div>
-          </motion.div>
+          </motion.button>
         ))}
       </div>
     </motion.div>

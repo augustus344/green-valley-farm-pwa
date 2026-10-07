@@ -1,13 +1,15 @@
 import { motion } from 'framer-motion';
+import { useToast } from '../components/Toast';
 import { riseItem, spring, staggerContainer, tapScale } from '../motion';
 
 export function AnalyticsScreen() {
+  const toast = useToast();
   const bars = [65, 80, 45, 90, 72, 88, 95];
   const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
   return (
     <motion.div
-      className="px-4 pt-4 pb-24 space-y-4"
+      className="space-y-4 px-4 pb-6 pt-4"
       variants={staggerContainer}
       initial="hidden"
       animate="show"
@@ -41,16 +43,16 @@ export function AnalyticsScreen() {
           { label: 'Livestock health', value: '96%', sub: '48 / 48 healthy', color: 'text-green-600', subColor: 'text-gray-500' },
           { label: 'Crop growth', value: '79%', sub: 'On track for harvest', color: 'text-[#E8A838]', subColor: 'text-gray-500' },
         ].map((c) => (
-          <motion.div key={c.label} whileTap={tapScale} className="bg-[#FFFDF8] rounded-3xl shadow-sm p-4">
+          <motion.button type="button" key={c.label} whileTap={tapScale} onClick={() => toast(`${c.label}: ${c.value}`, '📊')} className="cursor-pointer rounded-3xl bg-[#FFFDF8] p-4 text-left shadow-sm">
             <p className="text-xs text-gray-500">{c.label}</p>
             <p className={`text-2xl font-bold ${c.color}`}>{c.value}</p>
             <p className={`text-[10px] ${c.subColor}`}>{c.sub}</p>
-          </motion.div>
+          </motion.button>
         ))}
       </motion.div>
 
-      <motion.div variants={riseItem} className="bg-[#FFFDF8] rounded-3xl shadow-sm p-4">
-        <h3 className="text-sm font-semibold text-[#2E5B34] mb-3">Soil nutrients</h3>
+      <motion.div variants={riseItem} className="rounded-3xl bg-[#FFFDF8] p-4 shadow-sm">
+        <h3 className="mb-3 text-sm font-semibold text-[#2E5B34]">Soil nutrients</h3>
         <svg viewBox="0 0 300 80" className="w-full h-20">
           <motion.polyline
             fill="none"

@@ -1,5 +1,7 @@
 import { motion } from 'framer-motion';
+import { useToast } from '../components/Toast';
 import { riseItem, spring, staggerContainer, tapScale } from '../motion';
+import { ASSETS } from '../assets';
 
 const MENU = [
   { icon: '🏞️', label: 'Farm size', value: '12.5 ha' },
@@ -10,9 +12,10 @@ const MENU = [
 ];
 
 export function ProfileScreen() {
+  const toast = useToast();
   return (
     <motion.div
-      className="px-4 pt-4 pb-24 space-y-4"
+      className="space-y-4 px-4 pb-6 pt-4"
       variants={staggerContainer}
       initial="hidden"
       animate="show"
@@ -29,9 +32,9 @@ export function ProfileScreen() {
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ ...spring, delay: 0.15 }}
-          className="w-20 h-20 rounded-full bg-[#2E5B34]/15 flex items-center justify-center text-4xl mb-3"
+          className="mb-3 flex h-20 w-20 items-center justify-center overflow-hidden rounded-full bg-[#2E5B34]/15"
         >
-          🧑‍🌾
+          <img src={ASSETS.farmer_a} alt="" className="h-16 w-16 object-contain" style={{ imageRendering: 'pixelated' }} />
         </motion.div>
         <p className="text-lg font-bold text-[#2E5B34]">Guest Farmer</p>
         <p className="text-xs text-gray-500">Green Valley Farm</p>
@@ -45,7 +48,9 @@ export function ProfileScreen() {
           <motion.button
             key={item.label}
             whileTap={tapScale}
-            className="w-full flex items-center gap-3 px-4 py-3.5 text-left"
+            onClick={() => toast(item.label, item.icon)}
+            type="button"
+            className="flex w-full cursor-pointer items-center gap-3 px-4 py-3.5 text-left"
           >
             <span className="text-xl">{item.icon}</span>
             <span className="flex-1 text-sm font-medium text-[#2E5B34]">{item.label}</span>
